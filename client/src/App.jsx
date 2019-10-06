@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import DonationView from "./views/Donation";
 
 import "./App.css";
 
@@ -13,17 +14,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import BlogNavbar from "./components/BlogNavbar";
 
-import ListView from "./views/List";
-import CreateView from "./views/Create";
-import PostView from "./views/Post";
-import EditView from "./views/Edit";
 import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
 import ErrorView from "./views/Error";
 import CatchAll from "./views/CatchAll";
 
-import Home from "./views/Home";
-import Hello from "./views/Hello";
+import ProfileView from "./views/Profile";
 
 import Container from "react-bootstrap/Container";
 
@@ -109,30 +105,13 @@ export default class App extends Component {
                 />
                 {/*   goes to /home that is protected and only acessable if you
                 have a session initiated (you are loggedin)    */}
-                {/* <ProtectedRoute
-                  path="/"
-                  component={Hello}
-                  verify={this.verifyAuthenticated}
-                /> */}
                 <ProtectedRoute
-                  path="/home"
+                  path="/profile"
                   exact
-                  component={Hello}
+                  component={ProfileView}
                   verify={this.verifyAuthenticated}
                 />
                 {/*   -------------------------------------------------------------   */}
-
-                <ProtectedRoute
-                  path="/post/create"
-                  component={CreateView}
-                  verify={this.verifyAuthenticated}
-                />
-                <ProtectedRoute
-                  path="/post/:id/edit"
-                  component={EditView}
-                  verify={this.verifyAuthenticated}
-                />
-                <Route path="/post/:id" exact component={PostView} />
                 {/* here starts the app as a protected route*/}
                 <ProtectedRoute
                   path="/sign-in"
@@ -141,6 +120,7 @@ export default class App extends Component {
                     <SignIn {...props} exact loadUser={this.loadUser} />
                   )}
                 />
+                <Route path="/donation" exact component={DonationView} />
                 <Route path="/error/:code" component={ErrorView} />
                 <Redirect path="/" to="/error/404" />
               </Switch>
